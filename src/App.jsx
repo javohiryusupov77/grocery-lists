@@ -38,12 +38,12 @@ function App() {
     e.preventDefault();
     const newItem = inputRef.current.value.trim();
     if (newItem) {
-      addItem(newItem);
+      AddItems(newItem);
       inputRef.current.value = "";
     }
   };
 
-  const addItem = async (itemText) => {
+  async function AddItems() {
     const id = Date.now();
     const item = {
       id,
@@ -56,7 +56,7 @@ function App() {
         headers: {
           "Content-Type": "application/json",
         },
-        body:JSON.stringify(item),
+        body: JSON.stringify(item),
       });
       if (!response.ok) {
         const errorText = await response.text();
@@ -67,7 +67,7 @@ function App() {
     } catch (error) {
       console.error("Creating new items", error.message);
     }
-  };
+  }
 
   return (
     <div className="App">
