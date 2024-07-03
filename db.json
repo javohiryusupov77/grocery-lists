@@ -1,23 +1,8 @@
 {
   "items": [
     {
-      "id": "1",
-      "item": "Bread",
-      "checked": false
-    },
-    {
-      "id": "2",
-      "item": "cucumber",
-      "checked": false
-    },
-    {
-      "id": "3",
-      "item": "WaterMelon",
-      "checked": false
-    },
-    {
-      "id": "4",
-      "item": "Banana",
+      "id": 1720015581705,
+      "item": "watermelon",
       "checked": false
     }
   ]

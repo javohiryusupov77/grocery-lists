@@ -63,20 +63,21 @@ function App() {
     e.preventDefault();
     AddItems();
   };
-  //  const deleteItem = async (id) => {
-  //    try {
-  //      const response = await fetch(`${api_Url}/items/${id}`, {
-  //        method: "DELETE",
-  //      });
-  //      if (!response.ok) {
-  //        const errorText = await response.text();
-  //        throw new Error(`Network response not ok: ${errorText}`);
-  //      }
-  //      setItems((Items) => Items.filter((item) => item.id !== id));
-  //    } catch (error) {
-  //      console.error("Deleting item", error.message);
-  //    }
-  //  };
+   const deleteItem = async (id) => {
+     try {
+       const response = await fetch(`${api_Url}/items/${id}`, {
+         method: "DELETE",
+       });
+       if (!response.ok) {
+         const errorText = await response.text();
+         throw new Error(`Network response not ok: ${errorText}`);
+       }
+       setItems((Items) => Items.filter((item) => item.id !== id));
+     } catch (error) {
+       console.error("Deleting item", error.message);
+     }
+   };
+   const handleCheck = () => {}
 
   return (
     <div className="App">
@@ -95,11 +96,12 @@ function App() {
             items={items.filter((item) =>
               item.item.toLowerCase().includes(search.toLowerCase())
             )}
+            handleCheck={handleCheck}
+            handleDelete={deleteItem}
           />
         )}
       </main>
-      <div>
-      </div>
+      <div></div>
       <Footer />
     </div>
   );

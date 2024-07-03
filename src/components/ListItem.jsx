@@ -1,22 +1,22 @@
 import React from "react";
 import { FaTrashAlt } from "react-icons/fa";
 
-const ListItem = ({ item, onToggle, onDelete }) => {
+const ListItem = ({ item, handleCheck, handleDelete }) => {
   return (
     <li className="item">
       <input
         type="checkbox"
         checked={item.checked}
-        onChange={() => onToggle(item.id)}
+        onChange={() => handleCheck(item.id)}
       />
       <label
         style={item.checked ? { textDecoration: "line-through" } : null}
-        onDoubleClick={() => onToggle(item.id)}
+        onDoubleClick={() => handleCheck(item.id)}
       >
         {item.item}
       </label>
       <FaTrashAlt
-        onClick={() => onDelete(item.id)}
+        onClick={() => handleDelete(item.id)}
         role="button"
         tabIndex="0"
         aria-label={`Delete ${item.item}`}
