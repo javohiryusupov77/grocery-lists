@@ -4,6 +4,7 @@ import AddItem from "./components/AddItems";
 import Footer from "./components/Footer";
 import { useEffect, useRef, useState } from "react";
 import Content from "./components/Content";
+import ListItem from "./components/ListItem";
 
 function App() {
   const [items, setItems] = useState([]);
@@ -11,7 +12,6 @@ function App() {
   const [newItem, setNewItem] = useState("");
   const [fetchError, setFetchError] = useState(null);
   const [search, setSearch] = useState("");
-  const inputRef = useRef(null);
   const api_Url = "http://localhost:3000";
 
   useEffect(() => {
@@ -34,20 +34,11 @@ function App() {
     fetchItems();
   }, []);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const newItem = inputRef.current.value.trim();
-    if (newItem) {
-      AddItems(newItem);
-      inputRef.current.value = "";
-    }
-  };
-
   async function AddItems() {
     const id = Date.now();
     const item = {
       id,
-      item: itemText,
+      item: newItem,
       checked: false,
     };
     try {
@@ -68,6 +59,24 @@ function App() {
       console.error("Creating new items", error.message);
     }
   }
+  function handleSubmit(e) {
+    e.preventDefault();
+    AddItems();
+  };
+  //  const deleteItem = async (id) => {
+  //    try {
+  //      const response = await fetch(`${api_Url}/items/${id}`, {
+  //        method: "DELETE",
+  //      });
+  //      if (!response.ok) {
+  //        const errorText = await response.text();
+  //        throw new Error(`Network response not ok: ${errorText}`);
+  //      }
+  //      setItems((Items) => Items.filter((item) => item.id !== id));
+  //    } catch (error) {
+  //      console.error("Deleting item", error.message);
+  //    }
+  //  };
 
   return (
     <div className="App">
@@ -76,7 +85,6 @@ function App() {
         newItem={newItem}
         setNewItem={setNewItem}
         handleSubmit={handleSubmit}
-        inputRef={inputRef}
       />
       <SearchItem search={search} onSearch={setSearch} />
       <main>
@@ -90,6 +98,8 @@ function App() {
           />
         )}
       </main>
+      <div>
+      </div>
       <Footer />
     </div>
   );
