@@ -12,7 +12,7 @@ function App() {
   const [newItem, setNewItem] = useState("");
   const [fetchError, setFetchError] = useState(null);
   const [search, setSearch] = useState("");
-  const api_Url = "http://localhost:3000";
+  const api_Url = "http://localhost:3005";
 
   useEffect(() => {
     async function fetchItems() {
@@ -64,9 +64,13 @@ function App() {
     AddItems();
   };
    const deleteItem = async (id) => {
+    console.log(id, 'id')
      try {
        const response = await fetch(`${api_Url}/items/${id}`, {
          method: "DELETE",
+         headers: {
+           "Content-Type": "application/json",
+         },
        });
        if (!response.ok) {
          const errorText = await response.text();
