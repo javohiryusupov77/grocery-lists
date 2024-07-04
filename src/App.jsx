@@ -14,7 +14,7 @@ function App() {
   const [newItem, setNewItem] = useState("");
   const [fetchError, setFetchError] = useState(null);
   const [search, setSearch] = useState("");
-  const api_Url = "http://localhost:3011";
+  const api_Url = "https://for-deployment-1.onrender.com";
 
   useEffect(() => {
     async function fetchItems() {
