@@ -5,6 +5,7 @@ import Footer from "./components/Footer";
 import { useEffect, useRef, useState } from "react";
 import Content from "./components/Content";
 import ListItem from "./components/ListItem";
+import "./spinner.css"
 
 
 function App() {
@@ -32,7 +33,9 @@ function App() {
         setIsLoading(false);
       }
     }
-    fetchItems();
+    setTimeout(() => {
+      fetchItems();
+    },2000);
   }, []);
 
   async function AddItems() {
@@ -85,7 +88,7 @@ function App() {
       console.error("Deleting item", error);
     }
   };
-  
+
   const handleCheck = async (id) => {
     const updatedItems = items.map((item) =>
       item.id === id ? { ...item, checked: !item.checked } : item
@@ -120,7 +123,7 @@ function App() {
       />
       <SearchItem search={search} onSearch={setSearch} />
       <main>
-        {isLoading && <p>Loading</p>}
+        {isLoading && <p className="loader"></p>}
         {fetchError && <p style={{ color: "red" }}>{fetchError}</p>}
         {!isLoading && !fetchError && (
           <Content
