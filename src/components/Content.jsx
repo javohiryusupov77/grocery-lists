@@ -1,6 +1,8 @@
 import ItemList from "./ItemsList";
 
 const Content = ({ items, handleCheck, handleDelete }) => {
+  console.log(items,'contectpage');
+  console.log(handleDelete);
   return (
     <>
       {items.length ? (

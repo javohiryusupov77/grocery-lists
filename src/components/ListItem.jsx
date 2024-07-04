@@ -2,6 +2,7 @@ import React from "react";
 import { FaTrashAlt } from "react-icons/fa";
 
 const ListItem = ({ item, handleCheck, handleDelete }) => {
+  console.log(item,'listotempage');
   return (
     <li className="item">
       <input

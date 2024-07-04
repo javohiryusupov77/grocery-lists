@@ -12,7 +12,7 @@ function App() {
   const [newItem, setNewItem] = useState("");
   const [fetchError, setFetchError] = useState(null);
   const [search, setSearch] = useState("");
-  const api_Url = "http://localhost:3005";
+  const api_Url = "http://localhost:3011";
 
   useEffect(() => {
     async function fetchItems() {
@@ -35,7 +35,7 @@ function App() {
   }, []);
 
   async function AddItems() {
-    const id = Date.now();
+    const id = Date.now().toString();
     const item = {
       id,
       item: newItem,
@@ -55,6 +55,7 @@ function App() {
       }
       const newItems = [...items, item];
       setItems(newItems);
+      setNewItem("")
     } catch (error) {
       console.error("Creating new items", error.message);
     }
@@ -62,26 +63,28 @@ function App() {
   function handleSubmit(e) {
     e.preventDefault();
     AddItems();
+  }
+  const deleteItem = async (id) => {
+    console.log();
+    console.log(id, "deleteItem id");
+    try {
+      const response = await fetch(`${api_Url}/items/${id}`, {
+        method: 'DELETE',
+        headers:{
+          'content-Type': 'application/json'
+        }
+      });
+      console.log(response);
+      if (!response.ok) {
+        const errorText = await response.text();
+        throw new Error(`Network response not ok: ${errorText}`);
+      }
+      setItems((Items) => Items.filter((item) => item.id !== id));
+    } catch (error) {
+      console.error("Deleting item", error);
+    }
   };
-   const deleteItem = async (id) => {
-    console.log(id, 'id')
-     try {
-       const response = await fetch(`${api_Url}/items/${id}`, {
-         method: "DELETE",
-         headers: {
-           "Content-Type": "application/json",
-         },
-       });
-       if (!response.ok) {
-         const errorText = await response.text();
-         throw new Error(`Network response not ok: ${errorText}`);
-       }
-       setItems((Items) => Items.filter((item) => item.id !== id));
-     } catch (error) {
-       console.error("Deleting item", error.message);
-     }
-   };
-   const handleCheck = () => {}
+  const handleCheck = () => {};
 
   return (
     <div className="App">
