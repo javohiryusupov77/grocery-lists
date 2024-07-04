@@ -85,7 +85,30 @@ function App() {
       console.error("Deleting item", error);
     }
   };
-  const handleCheck = () => {};
+  
+  const handleCheck = async (id) => {
+    const updatedItems = items.map((item) =>
+      item.id === id ? { ...item, checked: !item.checked } : item
+    );
+    setItems(updatedItems);
+    const updatedItem = updatedItems.find((item) => item.id === id);
+
+    try {
+      const response = await fetch(`${api_Url}/items/${id}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ checked: updatedItem.checked }),
+      });
+      if (!response.ok) {
+        const errorText = await response.text();
+        throw new Error(`Network response not ok: ${errorText}`);
+      }
+    } catch (error) {
+      console.error("Updating item", error);
+    }
+  };
 
   return (
     <div className="App">
