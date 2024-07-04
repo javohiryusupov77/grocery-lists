@@ -35,7 +35,7 @@ function App() {
     }
     setTimeout(() => {
       fetchItems();
-    },2000);
+    },3000);
   }, []);
 
   async function AddItems() {
